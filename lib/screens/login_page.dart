@@ -25,8 +25,8 @@ class LoginPage extends ConsumerWidget {
     final formState = ref.watch(loginFormProvider);
     final formNotifier = ref.read(loginFormProvider.notifier);
     // Watch password visibility state and notifier
-    final passwordVisibility = ref.watch(passwordVisibilityProvider);
-    final passwordNotifier = ref.read(passwordVisibilityProvider.notifier);
+    final passwordVisibility = ref.watch(loginPasswordVisibilityProvider);
+    final passwordNotifier = ref.read(loginPasswordVisibilityProvider.notifier);
 
     // Listen for login success
     ref.listen(authProvider, (previous, next) {
@@ -54,7 +54,13 @@ class LoginPage extends ConsumerWidget {
   }
 
   // AppBar widget
-  AppBar _appBar() => AppBar(title: const Text('Login'));
+  AppBar _appBar() => AppBar(
+    backgroundColor: Colors.blue.shade100,
+    title: const Text(
+      'Login',
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+    ),
+  );
 
   // Body widget with form
   SingleChildScrollView _body(
@@ -80,9 +86,9 @@ class LoginPage extends ConsumerWidget {
                 // Email field
                 CustomTextfield(
                   controller: _emailController,
-                  validator: Validators.email,
-                  label: 'Email',
-                  onChanged: (value) => formNotifier.updateEmail(value),
+                  validator: Validators.emailOrUsername,
+                  label: 'Email/Username',
+                  onChanged: (value) => formNotifier.updateIdentifier(value),
                 ),
                 const SizedBox(height: 12),
 
@@ -124,7 +130,7 @@ class LoginPage extends ConsumerWidget {
                       : () {
                           if (_formKey.currentState!.validate()) {
                             authNotifier.login(
-                              _emailController.text.trim(),
+                              formState.identifier.trim(),
                               _passwordController.text.trim(),
                             );
                           }

@@ -23,6 +23,15 @@ class AuthNotifier extends Notifier<AuthState> {
       );
     }
   }
+
+  // Simulated registration method
+  Future<void> register(String email, String password) async {
+    state = state.copyWith(isLoading: true, error: null);
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    state = state.copyWith(isLoading: false);
+  }
 }
 
 // Riverpod 3 provider

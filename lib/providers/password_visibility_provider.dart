@@ -16,8 +16,20 @@ class PasswordVisibilityNotifier extends Notifier<PasswordVisibilityState> {
   }
 }
 
-// Riverpod 3 provider
-final passwordVisibilityProvider =
+// Login password visibility (used in LoginPage)
+final loginPasswordVisibilityProvider =
+    NotifierProvider<PasswordVisibilityNotifier, PasswordVisibilityState>(
+      PasswordVisibilityNotifier.new,
+    );
+
+// Registration password visibility
+final registerPasswordVisibilityProvider =
+    NotifierProvider<PasswordVisibilityNotifier, PasswordVisibilityState>(
+      PasswordVisibilityNotifier.new,
+    );
+
+// Registration confirm password visibility
+final registerConfirmPasswordVisibilityProvider =
     NotifierProvider<PasswordVisibilityNotifier, PasswordVisibilityState>(
       PasswordVisibilityNotifier.new,
     );

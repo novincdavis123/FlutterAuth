@@ -1,16 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginFormState {
-  final String email;
+  final String identifier; // email or username
   final String password;
 
-  const LoginFormState({this.email = '', this.password = ''});
+  const LoginFormState({this.identifier = '', this.password = ''});
 
-  bool get isValid => email.isNotEmpty && password.isNotEmpty;
+  bool get isValid => identifier.isNotEmpty && password.isNotEmpty;
 
-  LoginFormState copyWith({String? email, String? password}) {
+  LoginFormState copyWith({String? identifier, String? password}) {
     return LoginFormState(
-      email: email ?? this.email,
+      identifier: identifier ?? this.identifier,
       password: password ?? this.password,
     );
   }
@@ -21,8 +21,8 @@ class LoginFormNotifier extends Notifier<LoginFormState> {
   @override
   LoginFormState build() => const LoginFormState();
 
-  void updateEmail(String value) {
-    state = state.copyWith(email: value);
+  void updateIdentifier(String value) {
+    state = state.copyWith(identifier: value);
   }
 
   void updatePassword(String value) {
