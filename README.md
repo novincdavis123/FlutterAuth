@@ -34,7 +34,7 @@ A simple **Flutter** authentication app with **Login** and **Registration** page
 
 - **Navigation**
   - Login → Home on successful login
-  - Registration → Home on successful registration
+  - Registration → Login on successful registration
 
 ---
 
@@ -115,3 +115,8 @@ Validator
 Optional suffix icon for password visibility
 
 Register/Login Buttons update their color and enabled state dynamically based on form validation, without extra Consumer widgets.
+
+## Testing
+
+email: test@test.com
+password: 123456

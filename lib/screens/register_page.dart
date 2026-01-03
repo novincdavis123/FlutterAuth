@@ -161,6 +161,7 @@ class RegisterPage extends ConsumerWidget {
                     backgroundColor: Colors.blue.shade100,
                   ),
                   onPressed: () async {
+                    // Validate form and register
                     if (_formKey.currentState!.validate()) {
                       await authNotifier.register(
                         _emailController.text.trim(),
