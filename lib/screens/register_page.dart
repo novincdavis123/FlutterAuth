@@ -6,7 +6,6 @@ import '../utils/validators.dart';
 import '../providers/register_form_provider.dart';
 import '../providers/password_visibility_provider.dart';
 import 'login_page.dart';
-import 'home_page.dart';
 import 'package:flutterauth/auth/auth_state.dart';
 
 class RegisterPage extends ConsumerWidget {
@@ -37,24 +36,31 @@ class RegisterPage extends ConsumerWidget {
       registerConfirmPasswordVisibilityProvider.notifier,
     );
 
-    return Scaffold(
-      appBar: _appbar(),
-      body: _body(
-        context,
-        formNotifier,
-        passwordState,
-        passwordNotifier,
-        confirmState,
-        confirmNotifier,
-        authState,
-        formState,
-        authNotifier,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: _appbar(),
+        body: _body(
+          context,
+          formNotifier,
+          passwordState,
+          passwordNotifier,
+          confirmState,
+          confirmNotifier,
+          authState,
+          formState,
+          authNotifier,
+        ),
       ),
     );
   }
 
   // AppBar widget
-  AppBar _appbar() => AppBar(title: const Text('Registration'));
+  AppBar _appbar() => AppBar(
+    automaticallyImplyLeading: false,
+    backgroundColor: Colors.blue.shade100,
+    title: const Text('Registration'),
+  );
 
   // Body widget with form
   SingleChildScrollView _body(
@@ -152,30 +158,22 @@ class RegisterPage extends ConsumerWidget {
                 // Register Button
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: formState.isValid
-                        ? Colors.blue
-                        : Colors.grey,
+                    backgroundColor: Colors.blue.shade100,
                   ),
-                  onPressed: authState.isLoading || !formState.isValid
-                      ? null
-                      : () async {
-                          if (_formKey.currentState!.validate()) {
-                            await authNotifier.register(
-                              _emailController.text.trim(),
-                              _passwordController.text.trim(),
-                            );
-
-                            if (authNotifier.state.error == null &&
-                                context.mounted) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => const HomePage(),
-                                ),
-                              );
-                            }
-                          }
-                        },
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      await authNotifier.register(
+                        _emailController.text.trim(),
+                        _passwordController.text.trim(),
+                      );
+                      if (authNotifier.state.error == null && context.mounted) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => LoginPage()),
+                        );
+                      }
+                    }
+                  },
                   child: authState.isLoading
                       ? const SizedBox(
                           height: 20,
@@ -184,9 +182,14 @@ class RegisterPage extends ConsumerWidget {
                         )
                       : const Text('Register'),
                 ),
+                const SizedBox(height: 12),
 
                 // Back to Login
                 TextButton(
+                  style: ButtonStyle(
+                    overlayColor: WidgetStateProperty.all(Colors.transparent),
+                    splashFactory: NoSplash.splashFactory,
+                  ),
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,

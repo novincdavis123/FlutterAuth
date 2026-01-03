@@ -39,16 +39,19 @@ class LoginPage extends ConsumerWidget {
         );
       }
     });
-    return Scaffold(
-      appBar: _appBar(),
-      body: _body(
-        context,
-        formNotifier,
-        passwordVisibility,
-        passwordNotifier,
-        authState,
-        formState,
-        authNotifier,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: _appBar(),
+        body: _body(
+          context,
+          formNotifier,
+          passwordVisibility,
+          passwordNotifier,
+          authState,
+          formState,
+          authNotifier,
+        ),
       ),
     );
   }
@@ -152,10 +155,18 @@ class LoginPage extends ConsumerWidget {
 
                 // Links
                 TextButton(
+                  style: ButtonStyle(
+                    overlayColor: WidgetStateProperty.all(Colors.transparent),
+                    splashFactory: NoSplash.splashFactory,
+                  ),
                   onPressed: () {},
                   child: const Text('Forgot Password?'),
                 ),
                 TextButton(
+                  style: ButtonStyle(
+                    overlayColor: WidgetStateProperty.all(Colors.transparent),
+                    splashFactory: NoSplash.splashFactory,
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,

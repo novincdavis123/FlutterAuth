@@ -13,12 +13,14 @@ class RegisterFormState {
     this.confirmPassword = '',
   });
 
-  bool get isValid =>
-      name.isNotEmpty &&
-      email.isNotEmpty &&
-      password.isNotEmpty &&
-      confirmPassword.isNotEmpty &&
-      password == confirmPassword;
+  // Reactive computed property
+  bool get isValid {
+    return name.isNotEmpty &&
+        email.isNotEmpty &&
+        password.isNotEmpty &&
+        confirmPassword.isNotEmpty &&
+        password == confirmPassword;
+  }
 
   RegisterFormState copyWith({
     String? name,
@@ -39,13 +41,24 @@ class RegisterFormNotifier extends Notifier<RegisterFormState> {
   @override
   RegisterFormState build() => const RegisterFormState();
 
-  void updateName(String value) => state = state.copyWith(name: value);
-  void updateEmail(String value) => state = state.copyWith(email: value);
-  void updatePassword(String value) => state = state.copyWith(password: value);
-  void updateConfirmPassword(String value) =>
-      state = state.copyWith(confirmPassword: value);
+  void updateName(String value) {
+    state = state.copyWith(name: value);
+  }
+
+  void updateEmail(String value) {
+    state = state.copyWith(email: value);
+  }
+
+  void updatePassword(String value) {
+    state = state.copyWith(password: value);
+  }
+
+  void updateConfirmPassword(String value) {
+    state = state.copyWith(confirmPassword: value);
+  }
 }
 
+// Provider
 final registerFormProvider =
     NotifierProvider<RegisterFormNotifier, RegisterFormState>(
       RegisterFormNotifier.new,
