@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutterauth/screens/register_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterauth/screens/login_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -13,10 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-      ),
-      home: RegisterPage(),
+      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
+      home: LoginPage(),
     );
   }
 }
